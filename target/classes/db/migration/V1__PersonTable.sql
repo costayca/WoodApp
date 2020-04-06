@@ -1,4 +1,6 @@
-CREATE TABLE person (
+CREATE TABLE IF NOT EXISTS person (
     id UUID NOT NULL PRIMARY KEY,
     name VARCHAR (100) NOT NULL
 );
+
+
