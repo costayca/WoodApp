@@ -1,5 +1,5 @@
 package com.example.demo.service;
 
 public interface Observer {
-    public void update();
+    public void update(int value);
 }

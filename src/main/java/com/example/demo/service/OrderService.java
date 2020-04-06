@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@Service
+@Service("order")
 public class OrderService implements Subject {
 
     private final OrderDao orderDao;
@@ -33,12 +33,16 @@ public class OrderService implements Subject {
     @Override
     public void notifyObservers() {
         for (Observer observer: observers) {
-            observer.update();
+            observer.update(totalDuration);
         }
     }
 
     public void setTotalDuration(int totalDuration) {
         this.totalDuration = totalDuration;
         notifyObservers();
+    }
+
+    public int getTotalDuration() {
+        return totalDuration;
     }
 }
