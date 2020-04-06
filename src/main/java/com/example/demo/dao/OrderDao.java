@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.Order;
+import com.example.demo.model.Orders;
 import com.example.demo.model.Person;
 
 import java.util.List;
@@ -8,16 +8,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OrderDao {
-    int insertOrder(UUID id, Order order);
+    int insertOrder(UUID id, Orders orders);
 
-    default int insertOrder(Order order) {
+    default int insertOrder(Orders orders) {
         UUID id = UUID.randomUUID();
-        return insertOrder(id, order);
+        return insertOrder(id, orders);
     }
 
-    List<Order> selectAllOrders();
+    List<Orders> selectAllOrders();
 
-    Optional<Order> selectOrderById(UUID id);
+    Optional<Orders> selectOrderById(UUID id);
 
     int deleteOrderById(UUID id);
 

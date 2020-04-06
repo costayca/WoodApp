@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.Order;
+import com.example.demo.model.Orders;
 import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,17 +21,17 @@ public class OrderDataAccessService implements OrderDao {
     }
 
     @Override
-    public int insertOrder(UUID id, Order order) {
+    public int insertOrder(UUID id, Orders orders) {
         return 0;
     }
 
     @Override
-    public List<Order> selectAllOrders() {
+    public List<Orders> selectAllOrders() {
         return null;
     }
 
     @Override
-    public Optional<Order> selectOrderById(UUID id) {
+    public Optional<Orders> selectOrderById(UUID id) {
         return Optional.empty();
     }
 
