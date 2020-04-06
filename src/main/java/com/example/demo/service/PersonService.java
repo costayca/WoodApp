@@ -45,6 +45,10 @@ public class PersonService implements Observer {
         return personDao.updatePersonById(id, newPerson);
     }
 
+    public int getCurrentDuration() {
+        return currentDuration;
+    }
+
     @Override
     public void update(int value) {
         currentDuration = value;

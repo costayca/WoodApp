@@ -30,6 +30,11 @@ public class PersonController {
         return personService.getAllPeople();
     }
 
+    @GetMapping(path = "total")
+    public int getTotalDuration() {
+        return personService.getCurrentDuration();
+    }
+
     @GetMapping(path = "{id}")
     public Person getPersonById(@PathVariable("id") UUID id) {
         return personService.getPersonById(id).orElse(null);
