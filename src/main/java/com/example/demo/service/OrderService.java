@@ -1,19 +1,21 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.OrderDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-public class CommandService implements Subject {
+public class OrderService implements Subject {
 
     private final OrderDao orderDao;
     private ArrayList<Observer> observers;
     private int totalDuration = 0;
 
-    public CommandService(@Qualifier("postgres") OrderDao orderDao) {
+    @Autowired
+    public OrderService(@Qualifier("orderPostgres") OrderDao orderDao) {
         this.orderDao = orderDao;
         this.observers = new ArrayList<Observer>();
     }
