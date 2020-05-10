@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class InteriorDoor extends Door {
 
-    public InteriorDoor(UUID id, int color, int width, int height, String material, String type) {
+    public InteriorDoor(UUID id, String color, int width, int height, String material, String type) {
         super(id, color, width, height, material, type);
     }
 

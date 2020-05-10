@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface OrderDao {
+public interface OrdersDao {
     int insertOrder(UUID id, Orders orders);
 
     default int insertOrder(Orders orders) {

@@ -3,7 +3,7 @@ package com.example.demo.model;
 import java.util.UUID;
 
 public class ExteriorDoor extends Door {
-    public ExteriorDoor(UUID id, int color, int width, int height, String material, String type) {
+    public ExteriorDoor(UUID id, String color, int width, int height, String material, String type) {
         super(id, color, width, height, material, type);
     }
 

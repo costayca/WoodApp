@@ -7,7 +7,7 @@ import com.example.demo.model.InteriorDoor;
 import java.util.UUID;
 
 public class DoorFactory {
-    public Door createDoor(String doorClass, UUID id, int color, int width, int height, String material, String type) {
+    public Door createDoor(String doorClass, UUID id, String color, int width, int height, String material, String type) {
         Door door = null;
 
         if (doorClass.equals("Exterior")) {

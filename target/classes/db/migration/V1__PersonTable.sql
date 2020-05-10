@@ -3,4 +3,8 @@ CREATE TABLE IF NOT EXISTS person (
     name VARCHAR (100) NOT NULL
 );
 
-
+CREATE TABLE orders (
+    id UUID NOT NULL PRIMARY KEY,
+    customerId UUID NOT NULL REFERENCES person(id),
+    duration SMALLINT NOT NULL
+);

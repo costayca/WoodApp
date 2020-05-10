@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.OrderDao;
+import com.example.demo.dao.OrdersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,13 @@ import java.util.ArrayList;
 @Service("order")
 public class OrderService implements Subject {
 
-    private final OrderDao orderDao;
+    private final OrdersDao ordersDao;
     private ArrayList<Observer> observers;
     private int totalDuration = 0;
 
     @Autowired
-    public OrderService(@Qualifier("orderPostgres") OrderDao orderDao) {
-        this.orderDao = orderDao;
+    public OrderService(@Qualifier("ordersPostgres") OrdersDao ordersDao) {
+        this.ordersDao = ordersDao;
         this.observers = new ArrayList<Observer>();
     }
 

@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.util.*;
 
-@Repository("orderPostgres")
-public class OrderDataAccessService implements OrderDao {
+@Repository("ordersPostgres")
+public class OrdersDataAccessService implements OrdersDao {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public OrderDataAccessService(JdbcTemplate jdbcTemplate) {
+    public OrdersDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -27,7 +27,15 @@ public class OrderDataAccessService implements OrderDao {
 
     @Override
     public List<Orders> selectAllOrders() {
-        return null;
+        final String sql = "SELECT id, customerid, duration, products FROM orders";
+        return jdbcTemplate.query(sql,((resultSet, i) -> {
+            UUID id = UUID.fromString(resultSet.getString("id"));
+            UUID customerId = UUID.fromString(resultSet.getString("customerid"));
+            int duration = resultSet.getInt("duration");
+            List<UUID> products = new ArrayList<UUID>(Arrays.asList((UUID[]) resultSet.getArray("products").getArray()));
+
+            return new Orders(id, customerId, duration, products);
+        }));
     }
 
     @Override

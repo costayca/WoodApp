@@ -11,7 +11,7 @@ public class AdminService {
         this.doorFactory = new DoorFactory();
     }
 
-    private Door createDoor(String doorClass, UUID id, int color, int width, int height, String material, String type) {
+    private Door createDoor(String doorClass, UUID id, String color, int width, int height, String material, String type) {
         return doorFactory.createDoor(doorClass, id, color, width, height, material, type);
     }
 }

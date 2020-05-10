@@ -9,7 +9,7 @@ public abstract class Door {
 
     private final UUID id;
     @NotBlank
-    private final int color;
+    private final String color;
     @NotBlank
     private final int width;
     @NotBlank
@@ -23,7 +23,7 @@ public abstract class Door {
     public abstract float computePriceMaterial();
     public abstract float computePriceType();
 
-    public Door(@JsonProperty("id") UUID id, @JsonProperty("color") int color, @JsonProperty("width") int width, @JsonProperty("height") int height, @JsonProperty("material") String material, @JsonProperty("type") String type) {
+    public Door(@JsonProperty("id") UUID id, @JsonProperty("color") String color, @JsonProperty("width") int width, @JsonProperty("height") int height, @JsonProperty("material") String material, @JsonProperty("type") String type) {
         this.id = id;
         this.color = color;
         this.width = width;
@@ -37,7 +37,7 @@ public abstract class Door {
         return id;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
