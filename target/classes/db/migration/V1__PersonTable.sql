@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS person (
 CREATE TABLE orders (
     id UUID NOT NULL PRIMARY KEY,
     customerId UUID NOT NULL REFERENCES person(id),
-    duration SMALLINT NOT NULL
+    duration SMALLINT NOT NULL,
+    products UUID [] NOT NULL
 );

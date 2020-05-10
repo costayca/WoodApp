@@ -18,9 +18,9 @@ public class PersonService implements Observer {
     private int currentDuration = 0;
 
     @Autowired
-    public PersonService(@Qualifier("personPostgres") PersonDao personDao, @Qualifier("order") OrderService orderService) {
+    public PersonService(@Qualifier("personPostgres") PersonDao personDao, @Qualifier("order") OrdersService ordersService) {
         this.personDao = personDao;
-        this.subject = orderService;
+        this.subject = ordersService;
         subject.registerObserver(this);
     }
 
