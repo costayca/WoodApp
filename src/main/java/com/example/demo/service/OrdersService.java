@@ -4,6 +4,7 @@ import com.example.demo.dao.OrdersDao;
 import com.example.demo.model.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,10 @@ public class OrdersService implements Subject {
 
     public List<Orders> getAllOrders() {
         return ordersDao.selectAllOrders();
+    }
+
+    public int insertOrders(Orders orders) {
+        return ordersDao.insertOrder(orders);
     }
 
     @Override

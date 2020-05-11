@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Array;
+import java.sql.Connection;
+import java.sql.JDBCType;
 import java.sql.ResultSet;
 import java.util.*;
 
@@ -22,17 +24,22 @@ public class OrdersDataAccessService implements OrdersDao {
 
     @Override
     public int insertOrder(Orders orders) {
-        return 0;
+        final String sql = "INSERT INTO orders (id, customerid, duration, products) VALUES (?, ?, ?, ?)";
+        UUID[] uuids = new UUID[orders.getProducts().size()];
+        uuids = orders.getProducts().toArray(uuids);
+        UUID[] finalUuids = uuids;
+        Array uuidsArray = jdbcTemplate.execute((Connection c) -> c.createArrayOf("uuid", finalUuids));
+        return jdbcTemplate.update(sql, orders.getId(), orders.getCustomerId(), orders.getDuration(), uuidsArray);
     }
 
     @Override
     public List<Orders> selectAllOrders() {
         final String sql = "SELECT id, customerid, duration, products FROM orders";
-        return jdbcTemplate.query(sql,((resultSet, i) -> {
+        return jdbcTemplate.query(sql, ((resultSet, i) -> {
             UUID id = UUID.fromString(resultSet.getString("id"));
             UUID customerId = UUID.fromString(resultSet.getString("customerid"));
             int duration = resultSet.getInt("duration");
-            List<UUID> products = new ArrayList<UUID>(Arrays.asList((UUID[]) resultSet.getArray("products").getArray()));
+            List<UUID> products = new ArrayList<>(Arrays.asList((UUID[]) resultSet.getArray("products").getArray()));
 
             return new Orders(id, customerId, duration, products);
         }));

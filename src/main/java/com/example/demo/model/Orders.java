@@ -1,22 +1,25 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
 public class Orders {
 
     private final UUID id;
-    @NotBlank
+    @NotNull
     private final UUID customerId;
-    @NotBlank
+    @NotNull
     private final int duration;
-    @NotBlank
+    @NotNull
     private final List<UUID> products;
 
-    public Orders(UUID uuid, @NotBlank UUID customerUuid, @NotBlank int duration, @NotBlank List<UUID> products) {
-        this.id = uuid;
-        this.customerId = customerUuid;
+    public Orders(@JsonProperty("id") UUID id,@JsonProperty("customerid") UUID customerId,@JsonProperty("duration") int duration,@JsonProperty("products") List<UUID> products) {
+        this.id = id;
+        this.customerId = customerId;
         this.duration = duration;
         this.products = products;
     }
@@ -35,5 +38,15 @@ public class Orders {
 
     public List<UUID> getProducts() {
         return products;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", customerId=" + customerId +
+                ", duration=" + duration +
+                ", products=" + products +
+                '}';
     }
 }
