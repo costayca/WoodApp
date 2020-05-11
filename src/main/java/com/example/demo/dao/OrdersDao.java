@@ -8,12 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OrdersDao {
-    int insertOrder(UUID id, Orders orders);
-
-    default int insertOrder(Orders orders) {
-        UUID id = UUID.randomUUID();
-        return insertOrder(id, orders);
-    }
+    int insertOrder(Orders orders);
 
     List<Orders> selectAllOrders();
 

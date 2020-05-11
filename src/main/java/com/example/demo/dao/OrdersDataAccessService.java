@@ -21,7 +21,7 @@ public class OrdersDataAccessService implements OrdersDao {
     }
 
     @Override
-    public int insertOrder(UUID id, Orders orders) {
+    public int insertOrder(Orders orders) {
         return 0;
     }
 
