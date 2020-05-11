@@ -33,8 +33,8 @@ public class OrdersController {
     }
 
     @GetMapping(path = "{id}")
-    public Optional<Orders> selectOrdersById(@PathVariable("id") UUID id) {
-        return ordersService.selectOrdersById(id);
+    public Orders selectOrdersById(@PathVariable("id") UUID id) {
+        return ordersService.selectOrdersById(id).orElse(null);
     }
 
     @DeleteMapping(path = "{id}")

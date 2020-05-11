@@ -39,12 +39,12 @@ public class DoorDataAccessService implements DoorDao {
 
                 @Override
                 public float computePriceMaterial() {
-                    return price;
+                    return price / 2.0f;
                 }
 
                 @Override
                 public float computePriceType() {
-                    return price;
+                    return price / 2.0f;
                 }
             };
         }));
@@ -52,21 +52,51 @@ public class DoorDataAccessService implements DoorDao {
 
     @Override
     public Optional<Door> selectDoorById(UUID id) {
-        return Optional.empty();
+        final String sql = "SELECT * FROM door";
+        Door door = jdbcTemplate.queryForObject(sql, new Object[]{id}, ((resultSet, i) -> {
+            UUID uuid = UUID.fromString(resultSet.getString("id"));
+            String color = resultSet.getString("color");
+            String material = resultSet.getString("material");
+            String type = resultSet.getString("type");
+            int width = resultSet.getInt("width");
+            int height = resultSet.getInt("height");
+            int price = resultSet.getInt("price");
+
+            return new Door(uuid, color, width, height, material, type) {
+                @Override
+                public int computePrice() {
+                    return price;
+                }
+
+                @Override
+                public float computePriceMaterial() {
+                    return price / 2.0f;
+                }
+
+                @Override
+                public float computePriceType() {
+                    return price / 2.0f;
+                }
+            };
+        }));
+        return Optional.ofNullable(door);
     }
 
     @Override
     public int insertDoor(Door door) {
-        return 0;
+        final String sql = "INSERT INTO door (id, color, material, type, width, height, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, door.getId(), door.getColor(), door.getMaterial(), door.getType(), door.getWidth(), door.getHeight(), door.getPrice());
     }
 
     @Override
     public int deleteDoorById(UUID id) {
-        return 0;
+        final String sql = "DELETE FROM door WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public int updateDoorById(UUID id, Door door) {
-        return 0;
+        final String sql = "UPDATE door SET color = ?, material = ?, type = ?, width = ?, height = ?, price = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, door.getColor(), door.getMaterial(), door.getType(), door.getWidth(), door.getHeight(), door.getPrice(), id);
     }
 }

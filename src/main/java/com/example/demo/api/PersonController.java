@@ -21,8 +21,8 @@ public class PersonController {
     }
 
     @PostMapping
-    public void addPerson(@Valid @NotNull @RequestBody Person person) {
-        personService.addPerson(person);
+    public int addPerson(@Valid @NotNull @RequestBody Person person) {
+        return personService.addPerson(person);
     }
 
     @GetMapping
@@ -41,12 +41,12 @@ public class PersonController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deletePersonById(@PathVariable("id") UUID id) {
-        personService.deletePerson(id);
+    public int deletePersonById(@PathVariable("id") UUID id) {
+        return personService.deletePerson(id);
     }
 
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Person personToUpdate) {
-        personService.updatePerson(id, personToUpdate);
+    public int updatePerson(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Person personToUpdate) {
+        return personService.updatePerson(id, personToUpdate);
     }
 }

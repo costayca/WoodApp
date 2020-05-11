@@ -49,14 +49,12 @@ public class PersonDataAccessService implements PersonDao {
     @Override
     public int deletePersonById(UUID id) {
         final String sql = "DELETE FROM person WHERE id = ?";
-        jdbcTemplate.update(sql, id);
-        return 1;
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public int updatePersonById(UUID id, Person person) {
         final String sql = "UPDATE person SET name = ? WHERE id = ?";
-        jdbcTemplate.update(sql, person.getName(), id);
-        return 1;
+        return jdbcTemplate.update(sql, person.getName(), id);
     }
 }
