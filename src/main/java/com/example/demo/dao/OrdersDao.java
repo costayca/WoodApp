@@ -14,7 +14,7 @@ public interface OrdersDao {
 
     Optional<Orders> selectOrderById(UUID id);
 
-    int deleteOrderById(UUID id);
+    void deleteOrderById(UUID id);
 
-    int updateOrderById(UUID id, Person person);
+    void updateOrderById(UUID id, Orders orders);
 }

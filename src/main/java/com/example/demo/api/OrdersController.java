@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RequestMapping("/api/v1/orders")
 @RestController
@@ -28,5 +30,20 @@ public class OrdersController {
     @PostMapping
     public void insertOrders(@Valid @NotNull @RequestBody Orders orders) {
         ordersService.insertOrders(orders);
+    }
+
+    @GetMapping(path = "{id}")
+    public Optional<Orders> selectOrdersById(@PathVariable("id") UUID id) {
+        return ordersService.selectOrdersById(id);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteOrdersById(@PathVariable("id") UUID id) {
+        ordersService.deleteOrdersById(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateOrdersById(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Orders ordersToUpdate) {
+        ordersService.updateOrdersById(id, ordersToUpdate);
     }
 }

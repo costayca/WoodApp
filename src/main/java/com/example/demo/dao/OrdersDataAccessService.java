@@ -47,16 +47,32 @@ public class OrdersDataAccessService implements OrdersDao {
 
     @Override
     public Optional<Orders> selectOrderById(UUID id) {
-        return Optional.empty();
+        final String sql = "SELECT id, customerid, duration, products FROM orders WHERE id = ?";
+        Orders order = jdbcTemplate.queryForObject(sql, new Object[]{id}, ((resultSet, i) -> {
+            UUID orderId = UUID.fromString(resultSet.getString("id"));
+            UUID customerId = UUID.fromString(resultSet.getString("customerid"));
+            int duration = resultSet.getInt("duration");
+            List<UUID> products = new ArrayList<>(Arrays.asList((UUID[]) resultSet.getArray("products").getArray()));
+
+            return new Orders(orderId, customerId, duration, products);
+        }));
+
+        return Optional.ofNullable(order);
     }
 
     @Override
-    public int deleteOrderById(UUID id) {
-        return 0;
+    public void deleteOrderById(UUID id) {
+        final String sql = "DELETE FROM orders WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
-    public int updateOrderById(UUID id, Person person) {
-        return 0;
+    public void updateOrderById(UUID id, Orders orders) {
+        final String sql = "UPDATE orders SET customerId = ?, duration = ?, products = ? WHERE id = ?";
+        UUID[] uuids = new UUID[orders.getProducts().size()];
+        uuids = orders.getProducts().toArray(uuids);
+        UUID[] finalUuids = uuids;
+        Array uuidsArray = jdbcTemplate.execute((Connection c) -> c.createArrayOf("uuid", finalUuids));
+        jdbcTemplate.update(sql, orders.getCustomerId(), orders.getDuration(), uuidsArray, id);
     }
 }

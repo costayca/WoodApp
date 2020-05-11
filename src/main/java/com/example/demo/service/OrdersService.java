@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service("order")
 public class OrdersService implements Subject {
@@ -31,6 +33,18 @@ public class OrdersService implements Subject {
         return ordersDao.insertOrder(orders);
     }
 
+    public Optional<Orders> selectOrdersById(UUID id) {
+        return ordersDao.selectOrderById(id);
+    }
+
+    public void deleteOrdersById(UUID id) {
+        ordersDao.deleteOrderById(id);
+    }
+
+    public void updateOrdersById(UUID id, Orders orders) {
+        ordersDao.updateOrderById(id, orders);
+    }
+
     @Override
     public void registerObserver(Observer o) {
         observers.add(o);
@@ -43,7 +57,7 @@ public class OrdersService implements Subject {
 
     @Override
     public void notifyObservers() {
-        for (Observer observer: observers) {
+        for (Observer observer : observers) {
             observer.update(totalDuration);
         }
     }
