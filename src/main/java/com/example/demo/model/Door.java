@@ -2,21 +2,23 @@ package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public abstract class Door {
 
     private final UUID id;
-    @NotBlank
+    @NotNull
     private final String color;
-    @NotBlank
+    @NotNull
     private final int width;
-    @NotBlank
+    @NotNull
     private final int height;
+    @NotNull
     private final int price;
-    @NotBlank
+    @NotNull
     private final String material;
+    @NotNull
     private final String type;
 
     public abstract int computePrice();
