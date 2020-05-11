@@ -1,15 +1,12 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Orders;
-import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Array;
 import java.sql.Connection;
-import java.sql.JDBCType;
-import java.sql.ResultSet;
 import java.util.*;
 
 @Repository("ordersPostgres")

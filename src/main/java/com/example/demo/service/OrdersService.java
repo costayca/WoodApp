@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service("order")
+@Service("orders")
 public class OrdersService implements Subject {
 
     private final OrdersDao ordersDao;
