@@ -21,27 +21,37 @@ public class PersonDataAccessService implements PersonDao {
 
     @Override
     public int insertPerson(Person person) {
-        final String sql = "INSERT INTO person (id, name) VALUES (?, ?)";
-        return jdbcTemplate.update(sql, person.getId(), person.getName());
+        final String sql = "INSERT INTO person (id, name, address, phone_number, password, username, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, person.getId(), person.getName(), person.getAddress(), person.getPhone_number(), person.getPassword(), person.getUsername(), person.getRole());
     }
 
     @Override
     public List<Person> selectAllPeople() {
-        final String sql = "SELECT id, name FROM person";
+        final String sql = "SELECT id, name, address, phone_number, password, username, role FROM person";
         return jdbcTemplate.query(sql, (resultSet, i) -> {
             UUID id = UUID.fromString(resultSet.getString("id"));
             String name = resultSet.getString("name");
-            return new Person(id, name);
+            String address = resultSet.getString("address");
+            String phone_number = resultSet.getString("phone_number");
+            String password = resultSet.getString("password");
+            String username = resultSet.getString("username");
+            String role = resultSet.getString("role");
+            return new Person(id, name, address, phone_number, password, username, role);
         });
     }
 
     @Override
     public Optional<Person> selectPersonById(UUID id) {
-        final String sql = "SELECT id, name FROM person WHERE id = ?";
+        final String sql = "SELECT id, name, address, phone_number, password, username, role FROM person WHERE id = ?";
         Person person = jdbcTemplate.queryForObject(sql, new Object[]{id}, (resultSet, i) -> {
             UUID personId = UUID.fromString(resultSet.getString("id"));
             String name = resultSet.getString("name");
-            return new Person(personId, name);
+            String address = resultSet.getString("address");
+            String phone_number = resultSet.getString("phone_number");
+            String password = resultSet.getString("password");
+            String username = resultSet.getString("username");
+            String role = resultSet.getString("role");
+            return new Person(personId, name, address, phone_number, password, username, role);
         });
         return Optional.ofNullable(person);
     }
@@ -54,7 +64,7 @@ public class PersonDataAccessService implements PersonDao {
 
     @Override
     public int updatePersonById(UUID id, Person person) {
-        final String sql = "UPDATE person SET name = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, person.getName(), id);
+        final String sql = "UPDATE person SET name = ?, address = ?, phone_number = ?, password= ?, username = ?, role = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, person.getName(), person.getAddress(), person.getPhone_number(), person.getPassword(), person.getUsername(), person.getRole(), id);
     }
 }
